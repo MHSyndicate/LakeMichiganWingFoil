@@ -49,7 +49,8 @@ SPOTS = [
     dict(key="gillson", name="Gillson Beach, Wilmette IL", lat=42.0772, lon=-87.6829,
          faces="ENE/NE", inland=False,
          sail={"N", "NE", "ENE", "E", "NW", "NNW"},
-         source="Wilmette Buoy 45174 + LMZ741"),
+         source="Wilmette Buoy 45174 + LMZ741",
+         live="https://iiseagrant.org/wilmettebuoy/"),
     dict(key="greenwood", name="Greenwood Beach, Evanston IL", lat=42.0460, lon=-87.6730,
          faces="E", inland=False,
          sail={"SW", "S", "SSE", "SE", "E", "NE", "N", "NW"},
@@ -247,6 +248,12 @@ def routing_note(spot, s):
 GLYPH = {"go": "🟢", "warn": "⚠️", "no": "⚪"}
 
 
+def spot_label(spot):
+    """First-column label: name links to the live reading when one exists."""
+    name = f"[{spot['name']}]({spot['live']})" if spot.get("live") else spot["name"]
+    return f"{name} ({spot['faces']})"
+
+
 # --------------------------------------------------------------------------
 # Report assembly
 # --------------------------------------------------------------------------
@@ -332,7 +339,7 @@ def build_report(data):
             if rn:
                 txt += f" ({rn})"
             cells.append(txt)
-        L.append(f"| {spot['name']} ({spot['faces']}) | " + " | ".join(cells) + " |")
+        L.append(f"| {spot_label(spot)} | " + " | ".join(cells) + " |")
     L.append("")
 
     # Early Progressor grid
@@ -346,7 +353,7 @@ def build_report(data):
             s = data[spot["key"]][i]
             st, note = assess(spot, s, "EP")
             cells.append(f"{GLYPH[st]} {note}")
-        L.append(f"| {spot['name']} ({spot['faces']}) | " + " | ".join(cells) + " |")
+        L.append(f"| {spot_label(spot)} | " + " | ".join(cells) + " |")
     L.append("")
     L.append("---")
     L.append("")
@@ -354,11 +361,12 @@ def build_report(data):
     # Wind sources
     L.append("## Wind Sources")
     L.append("")
-    L.append("| Spot | Sailable directions | Source |")
-    L.append("|---|---|---|")
+    L.append("| Spot | Sailable directions | Source | Live |")
+    L.append("|---|---|---|---|")
     for spot in SPOTS:
         order = [d for d in DIRS if d in spot["sail"]]
-        L.append(f"| {spot['name']} | {', '.join(order)} | {spot['source']} |")
+        live = f"[live reading]({spot['live']})" if spot.get("live") else "—"
+        L.append(f"| {spot['name']} | {', '.join(order)} | {spot['source']} | {live} |")
     L.append("")
     L.append("---")
     L.append("")
@@ -465,6 +473,10 @@ def to_html(md_text, best, dates):
             td["class"] = td.get("class", []) + ["warn-cell"]
         elif "⚪" in t:
             td["class"] = td.get("class", []) + ["no-cell"]
+    for a in soup.find_all("a"):
+        if a.get("href", "").startswith("http"):
+            a["target"] = "_blank"
+            a["rel"] = "noopener"
     body = str(soup)
     for g, c in {"🟢": "i-go", "⚪": "i-no", "⚠️": "i-warn"}.items():
         body = body.replace(g, f'<span class="{c}">{g}</span>')
