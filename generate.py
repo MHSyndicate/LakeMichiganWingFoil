@@ -89,6 +89,8 @@ SPOTS = [
 EP_LO, EP_HI = 16, 28      # Early Progressor
 EXP_LO, EXP_HI = 14, 39    # Experienced
 WAVE_FLAG_FT = 2           # Experienced wave go-flag when waves exceed this
+MIN_HOURS = 2              # sustained wind must hold at/above the floor this many
+                           # daytime hours for a green; brief peaks don't count
 N_DAYS = 4                 # forecast horizon
 
 KMH_TO_KT = 0.539957
@@ -182,6 +184,7 @@ def summarise(wdir, wspd, wgst, wave, storm_days):
         days.append(dict(
             date=day, calm=False, dir=mean_dir,
             wmin=round(min(spds)), wmax=round(max(spds)),
+            spds=[round(v) for v in spds],
             gust=round(max(gsts)) if gsts else None,
             wave=round(max(wvs), 1) if wvs else None,
             storm=day in storm_days,
@@ -200,6 +203,14 @@ def dir_ok(spot, d):
     return DIRS[(i - 1) % 16] in spot["sail"] and DIRS[(i + 1) % 16] in spot["sail"]
 
 
+def steady_hours(s, floor):
+    """How many daytime hours sit at or above the sailable floor."""
+    spds = s.get("spds")
+    if spds is None:  # demo/fallback rows without an hourly series
+        return MIN_HOURS if s.get("wmax", 0) >= floor else 0
+    return sum(1 for v in spds if v >= floor)
+
+
 def assess(spot, s, profile):
     """Return (status, note). status in {'go','warn','no'}."""
     if s.get("calm"):
@@ -210,14 +221,14 @@ def assess(spot, s, profile):
     if profile == "EP":
         if not spot["inland"] and s.get("wave") and s["wave"] > 2:
             return ("no", "too wavy to progress")
-        if s["wmax"] < EP_LO:
-            return ("no", "too light")
+        if steady_hours(s, EP_LO) < MIN_HOURS:
+            return ("no", "wind only briefly in range")
         if s["wmin"] > EP_HI:
             return ("no", "too strong")
         return ("go", f"{s['wmin']}-{s['wmax']} kt, flat")
     else:  # Experienced
-        if s["wmax"] < EXP_LO:
-            return ("no", "too light")
+        if steady_hours(s, EXP_LO) < MIN_HOURS:
+            return ("no", "wind only briefly in range")
         if s["wmin"] > EXP_HI:
             return ("no", "overpowered")
         status = "warn" if s["storm"] else "go"
@@ -519,17 +530,26 @@ def to_html(md_text, best, dates):
 def demo_data():
     today = dt.datetime.now(CENTRAL).date()
     d = [today + dt.timedelta(days=i) for i in range(N_DAYS)]
+    # light, flat day
     light = lambda day: dict(date=day, calm=False, dir="E", wmin=4, wmax=9,
+                             spds=[4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 5, 4],
                              gust=12, wave=1, storm=False)
+    # the false-positive case: range 4-15, gust 24, but only one hour near 15
+    spiky = lambda day: dict(date=day, calm=False, dir="NE", wmin=4, wmax=15,
+                             spds=[4, 5, 6, 7, 8, 6, 9, 15, 11, 7, 5, 4],
+                             gust=24, wave=2, storm=False)
+    # solid, steady sailable day: 13-17 holds for hours
+    solid = lambda day, inland: dict(date=day, calm=False, dir="NNE", wmin=13, wmax=17,
+                                     spds=[12, 14, 15, 16, 17, 16, 15, 15, 14, 14, 13, 12],
+                                     gust=25, wave=None if inland else 4, storm=False)
     out = {}
     for spot in SPOTS:
-        days = [light(d[0]), light(d[1])]
-        # Monday: NE/N ~15 G25, 4 ft
-        days.append(dict(date=d[2], calm=False, dir="NNE", wmin=13, wmax=17,
-                         gust=25, wave=4 if not spot["inland"] else None, storm=False))
-        days.append(dict(date=d[3], calm=False, dir="N", wmin=5, wmax=9,
-                         gust=12, wave=1, storm=True))
-        out[spot["key"]] = days
+        out[spot["key"]] = [
+            light(d[0]),
+            spiky(d[1]),
+            solid(d[2], spot["inland"]),
+            light(d[3]),
+        ]
     return out
 
 
