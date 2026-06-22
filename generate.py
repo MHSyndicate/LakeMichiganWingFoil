@@ -40,6 +40,50 @@ def deg_to_compass(deg):
     return DIRS[int((deg % 360) / 22.5 + 0.5) % 16]
 
 
+def compute_peak(pairs):
+    """From (hour, sustained_kt) pairs, find the windiest 2-hour block.
+    Returns (start_hour, end_hour, part_of_day)."""
+    pairs = sorted(pairs)
+    if not pairs:
+        return (None, None, None)
+    best_i, best_sum = None, -1
+    for j in range(len(pairs) - 1):
+        (h0, v0), (h1, v1) = pairs[j], pairs[j + 1]
+        if h1 == h0 + 1 and v0 + v1 > best_sum:
+            best_sum, best_i = v0 + v1, j
+    if best_i is None:                       # no consecutive hours; use the max hour
+        h = max(pairs, key=lambda p: p[1])[0]
+        lo, hi = h, h + 1
+    else:
+        lo, hi = pairs[best_i][0], pairs[best_i][0] + 2
+    center = (lo + hi) / 2
+    part = "Morning" if center < 12 else ("Afternoon" if center < 17 else "Evening")
+    return (lo, hi, part)
+
+
+def _h12(h):
+    x = h % 12
+    return 12 if x == 0 else x
+
+
+def fmt_range(lo, hi):
+    """13,15 -> '1–3pm'; 11,13 -> '11am–1pm'."""
+    ap = lambda h: "am" if h % 24 < 12 else "pm"
+    if ap(lo) == ap(hi):
+        return f"{_h12(lo)}–{_h12(hi)}{ap(hi)}"
+    return f"{_h12(lo)}{ap(lo)}–{_h12(hi)}{ap(hi)}"
+
+
+def peak_text(s, i):
+    """Peak wind for a day cell: 2-hour range for today/tomorrow, part of day
+    for days 3-4."""
+    if s.get("calm") or s.get("peak_lo") is None:
+        return ""
+    if i <= 1:
+        return f" · peak {fmt_range(s['peak_lo'], s['peak_hi'])}"
+    return f" · {s['peak_part']}"
+
+
 # --------------------------------------------------------------------------
 # Spot definitions. `sail` is the set of compass directions (onshore + side)
 # that work at that spot. `inland` spots are flat, short-fetch, and not hurt
@@ -193,11 +237,12 @@ def summarise(wdir, wspd, wgst, wave, storm_days):
     days = []
     for i in range(N_DAYS):
         day = today + dt.timedelta(days=i)
-        dirs, spds, gsts, wvs = [], [], [], []
+        dirs, spds, gsts, wvs, pairs = [], [], [], [], []
         for utc, val in wspd.items():
             loc = utc.astimezone(CENTRAL)
             if loc.date() == day and 8 <= loc.hour <= 19:
                 spds.append(val)
+                pairs.append((loc.hour, val))
                 if utc in wdir:
                     dirs.append(wdir[utc])
                 if utc in wgst:
@@ -214,6 +259,7 @@ def summarise(wdir, wspd, wgst, wave, storm_days):
             mean_dir = deg_to_compass(math.degrees(math.atan2(sx, cx)))
         else:
             mean_dir = "—"
+        peak_lo, peak_hi, peak_part = compute_peak(pairs)
         days.append(dict(
             date=day, calm=False, dir=mean_dir,
             wmin=round(min(spds)), wmax=round(max(spds)),
@@ -221,6 +267,7 @@ def summarise(wdir, wspd, wgst, wave, storm_days):
             gust=round(max(gsts)) if gsts else None,
             wave=round(max(wvs), 1) if wvs else None,
             storm=day in storm_days,
+            peak_lo=peak_lo, peak_hi=peak_hi, peak_part=peak_part,
         ))
     return days
 
@@ -431,6 +478,8 @@ def build_report(data, temps):
             st, note = assess(spot, s, "EXP")
             rn = routing_note(spot, s)
             txt = f"{GLYPH[st]} {note}"
+            if st in ("go", "warn"):
+                txt += peak_text(s, i)
             if rn:
                 txt += f" ({rn})"
             cells.append(txt)
@@ -448,7 +497,10 @@ def build_report(data, temps):
         for i in range(N_DAYS):
             s = data[spot["key"]][i]
             st, note = assess(spot, s, "EP")
-            cells.append(f"{GLYPH[st]} {note}")
+            txt = f"{GLYPH[st]} {note}"
+            if st in ("go", "warn"):
+                txt += peak_text(s, i)
+            cells.append(txt)
         L.append(f"| {spot_label(spot)} | " + " | ".join(cells) + " |")
     L.append("")
     L.append("---")
@@ -640,6 +692,12 @@ def demo_data():
             solid(d[2], spot["inland"]),
             light(d[3]),
         ]
+    # fill in peak fields from each day's hourly speeds (hours assumed to start 8am)
+    for days in out.values():
+        for day in days:
+            if not day.get("calm") and "spds" in day:
+                lo, hi, part = compute_peak(list(enumerate(day["spds"], start=8)))
+                day["peak_lo"], day["peak_hi"], day["peak_part"] = lo, hi, part
     return out
 
 
