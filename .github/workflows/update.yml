@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write            # required so the job can commit the regenerated page
 
+concurrency:                 # never let two runs overlap (that caused merge conflicts)
+  group: update-conditions
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,13 +23,15 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python generate.py
-      - name: Commit updated page
+      - name: Generate and publish
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # sync to the very latest main BEFORE building, so our output is a
+          # clean update with nothing to merge
+          git pull --rebase --autostash origin main
+          python generate.py
           git add index.html report.md
           git diff --staged --quiet && echo "No changes to commit" && exit 0
           git commit -m "Update conditions ($(date -u +'%Y-%m-%d %H:%M UTC'))"
-          git pull --rebase origin main
           git push
