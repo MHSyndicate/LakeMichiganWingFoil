@@ -109,6 +109,23 @@ N_DAYS = 4                 # forecast horizon
 EP_SPOTS = ["andrea", "wolf", "waukegan", "greenwood", "nusail"]
 BY_KEY = {s["key"]: s for s in SPOTS}
 
+# Water temperatures from the NWS Chicago "Other Marine Products" (OMR) feed.
+# Each row: (name in the product | None, display label, station-page URL).
+# The temperature links to the station's own page. Wilmette isn't in the
+# product, so that row shows a live-reading link to the IISG buoy instead.
+WATER_TEMP_URL = ("https://forecast.weather.gov/product.php?"
+                  "site=LOT&issuedby=LOT&product=OMR&format=txt&version=1&glossary=0")
+_OMR_PAGE = "https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot"
+_GLERL_CHI = "https://www.glerl.noaa.gov/metdata/chi/"
+WATER_TEMPS = [
+    ("Chicago Shore", "Montrose", _GLERL_CHI),
+    ("Waukegan Buoy", "Waukegan Buoy", "https://www.ndbc.noaa.gov/station_page.php?station=45186"),
+    ("Winthrop Harbor Buoy", "Winthrop Harbor Buoy", "https://www.ndbc.noaa.gov/station_page.php?station=45187"),
+    (None, "Wilmette Buoy", "https://iiseagrant.org/wilmettebuoy/"),
+    ("Chicago Crib", "Chicago Crib", _GLERL_CHI),
+    ("Michigan City", "Michigan City", _OMR_PAGE),
+]
+
 KMH_TO_KT = 0.539957
 M_TO_FT = 3.28084
 UA = {"User-Agent": "lake-mi-wingfoil/1.0 (personal conditions page)",
@@ -275,6 +292,30 @@ def routing_note(spot, s):
 GLYPH = {"go": "🟢", "warn": "⚠️", "no": "⚪"}
 
 
+def fetch_water_temps():
+    """Parse the NWS Chicago OMR product for the stations we care about."""
+    import requests
+    r = requests.get(WATER_TEMP_URL, headers={"User-Agent": UA["User-Agent"]}, timeout=30)
+    r.raise_for_status()
+    text = r.text
+    out = {}
+    m = re.search(r"(\d{3,4} (?:AM|PM) [A-Z]{2,4} \w+ \w+ \d{1,2} \d{4})", text)
+    out["_issued"] = m.group(1).strip() if m else ""
+    for prod, label, link in WATER_TEMPS:
+        if not prod:
+            continue
+        mm = re.search(re.escape(prod) + r"\.+\s*(M|\d+)", text)
+        out[label] = mm.group(1) if mm else None
+    return out
+
+
+def demo_water_temps():
+    return {"_issued": "909 AM CDT Sun Apr 26 2026",
+            "Montrose": "53", "Waukegan Buoy": "46",
+            "Winthrop Harbor Buoy": "47", "Chicago Crib": "50",
+            "Michigan City": "49"}
+
+
 def spot_label(spot):
     """First-column label: name links to the live reading (or webcam) when present."""
     url = spot.get("live") or spot.get("webcam")
@@ -285,7 +326,7 @@ def spot_label(spot):
 # --------------------------------------------------------------------------
 # Report assembly
 # --------------------------------------------------------------------------
-def build_report(data):
+def build_report(data, temps):
     """data: {spot_key: days[]}. Returns markdown string."""
     issued = dt.datetime.now(CENTRAL).strftime("%a, %b %-d %Y, %-I:%M %p CDT")
     dates = [data[SPOTS[0]["key"]][i]["date"] for i in range(N_DAYS)]
@@ -351,6 +392,27 @@ def build_report(data):
     L.append("")
     L.append("**Color key:** 🟢 sailable · ⚠️ sailable with a caveat (storm hours) · "
              "⚪ not sailable. Times are CDT.")
+    L.append("")
+    L.append("---")
+    L.append("")
+
+    # Lake Michigan water temperatures
+    L.append("## Lake Michigan Water Temperatures")
+    L.append("")
+    L.append("| Location | Water temp |")
+    L.append("|---|---|")
+    for prod, label, url in WATER_TEMPS:
+        if not prod:
+            disp = f"[live reading]({url})"
+        else:
+            v = temps.get(label)
+            disp = f"[{v}&deg;F]({url})" if v and v != "M" else "—"
+        L.append(f"| {label} | {disp} |")
+    L.append("")
+    issued = temps.get("_issued")
+    src = "*Source: NWS Chicago Southern Lake Michigan Water Temperatures"
+    src += f", issued {issued}.*" if issued else ".*"
+    L.append(src)
     L.append("")
     L.append("---")
     L.append("")
@@ -584,6 +646,7 @@ def demo_data():
 def main():
     if DEMO:
         data = demo_data()
+        temps = demo_water_temps()
     else:
         data = {}
         for spot in SPOTS:
@@ -594,8 +657,13 @@ def main():
                 today = dt.datetime.now(CENTRAL).date()
                 data[spot["key"]] = [dict(date=today + dt.timedelta(days=i), calm=True)
                                      for i in range(N_DAYS)]
+        try:
+            temps = fetch_water_temps()
+        except Exception as e:
+            print(f"  ! water temps fetch failed: {e}", file=sys.stderr)
+            temps = {}
 
-    md, best, dates = build_report(data)
+    md, best, dates = build_report(data, temps)
     html = to_html(md, best, dates)
     open("report.md", "w", encoding="utf-8").write(md)
     open("index.html", "w", encoding="utf-8").write(html)
