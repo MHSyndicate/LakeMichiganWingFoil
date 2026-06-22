@@ -85,15 +85,26 @@ SPOTS = [
          faces="W/WSW", inland=False,
          sail={"W", "WSW", "SW", "NW", "N", "S"},
          source="LMZ847 + Muskegon buoy"),
+    dict(key="nusail", name="Northwestern Sailing Center, Evanston IL",
+         lat=42.0536, lon=-87.6716, faces="E", inland=False, exp=False,
+         sail={"S", "SE", "E", "ENE", "NE"},
+         source="Wilmette Buoy 45174 + LMZ741",
+         live="https://www.glerl.noaa.gov/metdata/chi/",
+         webcam="https://www.youtube.com/live/-c9WI2Owp0I"),
 ]
 
 # Profile thresholds (knots).
-EP_LO, EP_HI = 16, 28      # Early Progressor
+EP_LO, EP_HI = 14, 28      # Early Progressor
 EXP_LO, EXP_HI = 14, 39    # Experienced
 WAVE_FLAG_FT = 2           # Experienced wave go-flag when waves exceed this
 MIN_HOURS = 2              # sustained wind must hold at/above the floor this many
                            # daytime hours for a green; brief peaks don't count
 N_DAYS = 4                 # forecast horizon
+
+# Early Progressor section shows ONLY these spots, in this order: inland lakes
+# first (safer for progressing), then managed / east-facing launches.
+EP_SPOTS = ["andrea", "wolf", "waukegan", "greenwood", "nusail"]
+BY_KEY = {s["key"]: s for s in SPOTS}
 
 KMH_TO_KT = 0.539957
 M_TO_FT = 3.28084
@@ -262,8 +273,9 @@ GLYPH = {"go": "🟢", "warn": "⚠️", "no": "⚪"}
 
 
 def spot_label(spot):
-    """First-column label: name links to the live reading when one exists."""
-    name = f"[{spot['name']}]({spot['live']})" if spot.get("live") else spot["name"]
+    """First-column label: name links to the live reading (or webcam) when present."""
+    url = spot.get("live") or spot.get("webcam")
+    name = f"[{spot['name']}]({url})" if url else spot["name"]
     return f"{name} ({spot['faces']})"
 
 
@@ -283,6 +295,8 @@ def build_report(data):
     best = None
     for i in range(N_DAYS):
         for spot in SPOTS:
+            if not spot.get("exp", True):
+                continue
             s = data[spot["key"]][i]
             st, note = assess(spot, s, "EXP")
             rn = routing_note(spot, s)
@@ -291,10 +305,11 @@ def build_report(data):
                 score = (-i, (s.get("wave") or 0), s.get("wmax", 0))
                 if best is None or score > best[0]:
                     best = (score, spot, s, i, note)
-    # Early Progressor window
+    # Early Progressor window — only the EP spots, in priority order
     ep_hit = None
     for i in range(N_DAYS):
-        for spot in SPOTS:
+        for key in EP_SPOTS:
+            spot = BY_KEY[key]
             st, _ = assess(spot, data[spot["key"]][i], "EP")
             if st == "go":
                 ep_hit = (spot, data[spot["key"]][i], i)
@@ -308,7 +323,7 @@ def build_report(data):
     L.append(f"**Issued:** {issued}  ")
     L.append(f"**Window:** {dates[0].strftime('%a %b %-d')} -> "
              f"{dates[-1].strftime('%a %b %-d, %Y')}  ")
-    L.append("**Profiles:** Early Progressor (16-28 kt, inland-first, flat) · "
+    L.append("**Profiles:** Early Progressor (14-28 kt, inland-first, flat) · "
              "Experienced (14-39 kt, waves >2 ft, no storm hours)")
     L.append("")
     L.append("---")
@@ -343,6 +358,8 @@ def build_report(data):
     L.append("| Spot (faces) | " + " | ".join(headers) + " |")
     L.append("|" + "---|" * (N_DAYS + 1))
     for spot in SPOTS:
+        if not spot.get("exp", True):
+            continue
         cells = []
         for i in range(N_DAYS):
             s = data[spot["key"]][i]
@@ -355,12 +372,13 @@ def build_report(data):
         L.append(f"| {spot_label(spot)} | " + " | ".join(cells) + " |")
     L.append("")
 
-    # Early Progressor grid
+    # Early Progressor grid — only the EP spots, in the specified order
     L.append("## Early Progressor — next 4 days")
     L.append("")
     L.append("| Spot (faces) | " + " | ".join(headers) + " |")
     L.append("|" + "---|" * (N_DAYS + 1))
-    for spot in SPOTS:
+    for key in EP_SPOTS:
+        spot = BY_KEY[key]
         cells = []
         for i in range(N_DAYS):
             s = data[spot["key"]][i]
@@ -378,7 +396,12 @@ def build_report(data):
     L.append("|---|---|---|---|")
     for spot in SPOTS:
         order = [d for d in DIRS if d in spot["sail"]]
-        live = f"[live reading]({spot['live']})" if spot.get("live") else "—"
+        links = []
+        if spot.get("live"):
+            links.append(f"[live reading]({spot['live']})")
+        if spot.get("webcam"):
+            links.append(f"[webcam]({spot['webcam']})")
+        live = " · ".join(links) if links else "—"
         L.append(f"| {spot['name']} | {', '.join(order)} | {spot['source']} | {live} |")
     L.append("")
     L.append("---")
