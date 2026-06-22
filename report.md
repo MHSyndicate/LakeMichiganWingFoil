@@ -1,6 +1,6 @@
 # Lake Michigan Wing Foil Conditions & Recommendations
 
-**Issued:** Sun, Jun 21 2026, 10:04 PM CDT  
+**Issued:** Sun, Jun 21 2026, 10:50 PM CDT  
 **Window:** Sun Jun 21 -> Wed Jun 24, 2026  
 **Profiles:** Early Progressor (14-28 kt, inland-first, flat) · Experienced (14-39 kt, waves >2 ft, no storm hours)
 
@@ -12,6 +12,21 @@ Next window: **Monday at Greenwood Beach, Evanston IL** — 14-15 kt G22, ~4 ft 
  Early Progressor: **Monday at Wolf Lake, Hammond IN** (10-14 kt, flat).
 
 **Color key:** 🟢 sailable · ⚠️ sailable with a caveat (storm hours) · ⚪ not sailable. Times are CDT.
+
+---
+
+## Lake Michigan Water Temperatures
+
+| Location | Water temp |
+|---|---|
+| Montrose | [63&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
+| Waukegan Buoy | [55&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45186) |
+| Winthrop Harbor Buoy | [56&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45187) |
+| Wilmette Buoy | [live reading](https://iiseagrant.org/wilmettebuoy/) |
+| Chicago Crib | [59&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
+| Michigan City | [60&deg;F](https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot) |
+
+*Source: NWS Chicago Southern Lake Michigan Water Temperatures, issued 912 AM CDT Sun Jun 21 2026.*
 
 ---
 
