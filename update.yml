@@ -1,0 +1,40 @@
+name: Update conditions
+
+on:
+  schedule:
+    # Cron is UTC-only. Times below are for CDT (UTC-5, summer).
+    - cron: "30 12 * * *"    # 7:30 AM CDT
+    - cron: "30 17 * * *"    # 12:30 PM CDT
+    - cron: "0 1 * * *"      # 8:00 PM CDT (next UTC day)
+  workflow_dispatch:         # adds a "Run workflow" button for manual/testing runs
+
+permissions:
+  contents: write            # required so the job can commit the regenerated page
+
+concurrency:                 # never let two runs overlap (that caused merge conflicts)
+  group: update-conditions
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Generate and publish
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # sync to the very latest main BEFORE building, so our output is a
+          # clean update with nothing to merge
+          git pull --rebase --autostash origin main
+          python generate.py
+          git add index.html report.md
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Update conditions ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          git push
