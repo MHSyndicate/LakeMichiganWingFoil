@@ -1,15 +1,15 @@
 # Lake Michigan Wing Foil Conditions & Recommendations
 
-**Issued:** Sat, Jul 25 2026, 7:06 AM CDT  
-**Window:** Sat Jul 25 -> Tue Jul 28, 2026  
+**Issued:** Sun, Jul 26 2026, 7:10 AM CDT  
+**Window:** Sun Jul 26 -> Wed Jul 29, 2026  
 **Profiles:** Early Progressor (14-28 kt, inland-first, flat) · Experienced (14-39 kt, waves >2 ft, no storm hours)
 
 ---
 
 ## Summary
 
-No clearly sailable window for the Experienced profile in the next 4 days.
- Early Progressor: **Monday at Wolf Lake, Hammond IN** (9-14 kt, flat).
+Next window: **Wednesday at Pere Marquette, Muskegon MI** — 6-15 kt G23.
+ Early Progressor: **Tuesday at Wolf Lake, Hammond IN** (13-16 kt, flat).
 
 **Color key:** 🟢 sailable · ⚠️ sailable with a caveat (storm hours) · ⚪ not sailable. Times are CDT.
 
@@ -21,38 +21,38 @@ No clearly sailable window for the Experienced profile in the next 4 days.
 |---|---|
 | Montrose | [74&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
 | Waukegan Buoy | [71&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45186) |
-| Winthrop Harbor Buoy | [71&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45187) |
+| Winthrop Harbor Buoy | [70&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45187) |
 | Wilmette Buoy | [live reading](https://iiseagrant.org/wilmettebuoy/) |
-| Chicago Crib | [76&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
-| Michigan City | [71&deg;F](https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot) |
+| Chicago Crib | [73&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
+| Michigan City | [69&deg;F](https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot) |
 
-*Source: NWS Chicago Southern Lake Michigan Water Temperatures, issued 904 AM CDT Fri Jul 24 2026.*
+*Source: NWS Chicago Southern Lake Michigan Water Temperatures, issued 907 AM CDT Sat Jul 25 2026.*
 
 ---
 
 ## Experienced — next 4 days
 
-| Spot (faces) | Today 7/25 | Sun 7/26 | Mon 7/27 | Tue 7/28 |
+| Spot (faces) | Today 7/26 | Mon 7/27 | Tue 7/28 | Wed 7/29 |
 |---|---|---|---|---|
-| [Gillson Beach, Wilmette IL](https://iiseagrant.org/wilmettebuoy/) (ENE/NE) | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ wind only briefly in range |
-| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 10-14 kt G21 — storm hours, check timing · Afternoon | ⚠️ 12-14 kt G19, ~4 ft wave day — storm hours, check timing · Afternoon |
-| [Montrose Beach, Chicago IL](https://www.glerl.noaa.gov/metdata/chi/) (SE/S) | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ SW is offshore/cross here | ⚠️ 10-14 kt G19, ~3 ft wave day — storm hours, check timing · Afternoon |
-| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ WSW is offshore/cross here | ⚪ wind only briefly in range |
-| [Miller Beach, Gary IN](https://www.ndbc.noaa.gov/station_page.php?station=bhri3) (N) | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ N is offshore/cross here (direct N is poor here) |
-| Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range (SW/SSW — prime here) | ⚪ wind only briefly in range (SW/SSW — prime here) | ⚠️ 9-14 kt G23 — storm hours, check timing · Afternoon (SW/SSW — prime here) | ⚪ wind only briefly in range |
+| [Gillson Beach, Wilmette IL](https://iiseagrant.org/wilmettebuoy/) (ENE/NE) | ⚪ S is offshore/cross here | ⚪ SW is offshore/cross here | ⚠️ 14-18 kt G25, ~6 ft wave day — storm hours, check timing · Afternoon (running big — move to Greenwood) | ⚪ wind only briefly in range |
+| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 15-20 kt G26, ~7 ft wave day — storm hours, check timing · Afternoon | ⚪ wind only briefly in range |
+| [Montrose Beach, Chicago IL](https://www.glerl.noaa.gov/metdata/chi/) (SE/S) | ⚪ S is offshore/cross here | ⚪ SW is offshore/cross here | ⚠️ 14-19 kt G25, ~7 ft wave day — storm hours, check timing · Afternoon | ⚪ wind only briefly in range |
+| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ S is offshore/cross here | ⚪ SW is offshore/cross here | ⚠️ 13-16 kt G22, ~3 ft wave day — storm hours, check timing · Afternoon | ⚪ wind only briefly in range |
+| [Miller Beach, Gary IN](https://www.ndbc.noaa.gov/station_page.php?station=bhri3) (N) | ⚪ SSW is offshore/cross here | ⚪ SSW is offshore/cross here | ⚪ N is offshore/cross here (direct N is poor here) | ⚪ N is offshore/cross here (direct N is poor here) |
+| Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range (SW/SSW — prime here) | ⚪ wind only briefly in range (SW/SSW — prime here) | ⚠️ 13-16 kt G23, ~6 ft wave day — storm hours, check timing · Afternoon | ⚪ wind only briefly in range |
 | [Lake Andrea, Pleasant Prairie WI](https://forecast.weather.gov/data/obhistory/KENW.html) (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
-| Silver Beach, St. Joseph MI (W/NW) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 10-14 kt G24 — storm hours, check timing · Afternoon |
-| Pere Marquette, Muskegon MI (W/WSW) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 10-16 kt G25 — storm hours, check timing · Afternoon |
+| Silver Beach, St. Joseph MI (W/NW) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 12-18 kt G31 — storm hours, check timing · Evening | ⚪ wind only briefly in range |
+| Pere Marquette, Muskegon MI (W/WSW) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚠️ 12-18 kt G29 — storm hours, check timing · Afternoon | 🟢 6-15 kt G23 · Afternoon |
 
 ## Early Progressor — next 4 days
 
-| Spot (faces) | Today 7/25 | Sun 7/26 | Mon 7/27 | Tue 7/28 |
+| Spot (faces) | Today 7/26 | Mon 7/27 | Tue 7/28 | Wed 7/29 |
 |---|---|---|---|---|
 | [Lake Andrea, Pleasant Prairie WI](https://forecast.weather.gov/data/obhistory/KENW.html) (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
-| Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | 🟢 9-14 kt, flat · Afternoon | ⚪ wind only briefly in range |
-| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ WSW is offshore/cross here | ⚪ wind only briefly in range |
-| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | 🟢 10-14 kt, flat · Afternoon | ⚪ too wavy to progress |
-| [Northwestern Sailing Center, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ SSW is offshore/cross here | ⚪ SSW is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ N is offshore/cross here |
+| Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | 🟢 13-16 kt, flat · Afternoon | ⚪ wind only briefly in range |
+| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ S is offshore/cross here | ⚪ SW is offshore/cross here | ⚪ too wavy to progress | ⚪ wind only briefly in range |
+| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ too wavy to progress | ⚪ too wavy to progress |
+| [Northwestern Sailing Center, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ SW is offshore/cross here | ⚪ N is offshore/cross here | ⚪ NNE is offshore/cross here |
 
 ---
 
