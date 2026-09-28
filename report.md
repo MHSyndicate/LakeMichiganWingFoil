@@ -1,7 +1,7 @@
 # Lake Michigan Wing Foil Conditions & Recommendations
 
-**Issued:** Sun, Sep 27 2026, 10:36 AM CDT  
-**Window:** Sun Sep 27 -> Wed Sep 30, 2026  
+**Issued:** Mon, Sep 28 2026, 1:33 PM CDT  
+**Window:** Mon Sep 28 -> Thu Oct 1, 2026  
 **Profiles:** Early Progressor (14-28 kt, inland-first, flat) · Experienced (14-39 kt, waves >2 ft, no storm hours)
 
 ---
@@ -19,26 +19,26 @@ No clearly sailable window for the Experienced profile in the next 4 days.
 
 | Location | Water temp |
 |---|---|
-| Montrose | [64&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
+| Montrose | [65&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
 | Waukegan Buoy | [64&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45186) |
 | Winthrop Harbor Buoy | [64&deg;F](https://www.ndbc.noaa.gov/station_page.php?station=45187) |
 | Wilmette Buoy | [live reading](https://iiseagrant.org/wilmettebuoy/) |
 | Chicago Crib | [64&deg;F](https://www.glerl.noaa.gov/metdata/chi/) |
-| Michigan City | [57&deg;F](https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot) |
+| Michigan City | [60&deg;F](https://forecast.weather.gov/product.php?issuedby=lot&product=omr&site=lot) |
 
-*Source: NWS Chicago Southern Lake Michigan Water Temperatures, issued 924 AM CDT Sun Sep 27 2026.*
+*Source: NWS Chicago Southern Lake Michigan Water Temperatures, issued 934 AM CDT Mon Sep 28 2026.*
 
 ---
 
 ## Experienced — next 4 days
 
-| Spot (faces) | Today 9/27 | Mon 9/28 | Tue 9/29 | Wed 9/30 |
+| Spot (faces) | Today 9/28 | Tue 9/29 | Wed 9/30 | Thu 10/1 |
 |---|---|---|---|---|
-| [Gillson Beach, Wilmette IL](https://iiseagrant.org/wilmettebuoy/) (ENE/NE) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here |
-| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
-| [Montrose Beach, Chicago IL](https://www.glerl.noaa.gov/metdata/chi/) (SE/S) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here |
-| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here |
-| [Miller Beach, Gary IN](https://www.ndbc.noaa.gov/station_page.php?station=bhri3) (N) | ⚪ NNE is offshore/cross here | ⚪ N is offshore/cross here (direct N is poor here) | ⚪ S is offshore/cross here | ⚪ S is offshore/cross here |
+| [Gillson Beach, Wilmette IL](https://iiseagrant.org/wilmettebuoy/) (ENE/NE) | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here | ⚪ WNW is offshore/cross here |
+| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ W is offshore/cross here |
+| [Montrose Beach, Chicago IL](https://www.glerl.noaa.gov/metdata/chi/) (SE/S) | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here | ⚪ W is offshore/cross here |
+| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here | ⚪ WNW is offshore/cross here |
+| [Miller Beach, Gary IN](https://www.ndbc.noaa.gov/station_page.php?station=bhri3) (N) | ⚪ NNE is offshore/cross here | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here | ⚪ wind only briefly in range |
 | Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
 | [Lake Andrea, Pleasant Prairie WI](https://forecast.weather.gov/data/obhistory/KENW.html) (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
 | Silver Beach, St. Joseph MI (W/NW) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
@@ -46,13 +46,13 @@ No clearly sailable window for the Experienced profile in the next 4 days.
 
 ## Early Progressor — next 4 days
 
-| Spot (faces) | Today 9/27 | Mon 9/28 | Tue 9/29 | Wed 9/30 |
+| Spot (faces) | Today 9/28 | Tue 9/29 | Wed 9/30 | Thu 10/1 |
 |---|---|---|---|---|
 | [Lake Andrea, Pleasant Prairie WI](https://forecast.weather.gov/data/obhistory/KENW.html) (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
 | Wolf Lake, Hammond IN (inland) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
-| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here |
-| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
-| [Northwestern Sailing Center, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ NNE is offshore/cross here | ⚪ NNE is offshore/cross here | ⚪ wind only briefly in range | ⚪ wind only briefly in range |
+| [Waukegan Beach, Waukegan IL](https://www.ndbc.noaa.gov/station_page.php?station=45186) (E) | ⚪ wind only briefly in range | ⚪ SSE is offshore/cross here | ⚪ S is offshore/cross here | ⚪ WNW is offshore/cross here |
+| [Greenwood Beach, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ W is offshore/cross here |
+| [Northwestern Sailing Center, Evanston IL](https://www.glerl.noaa.gov/metdata/chi/) (E) | ⚪ NNE is offshore/cross here | ⚪ wind only briefly in range | ⚪ wind only briefly in range | ⚪ W is offshore/cross here |
 
 ---
 
